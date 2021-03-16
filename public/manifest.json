@@ -8,27 +8,35 @@
     "48": "icon48.png",
     "128": "icon128.png"
   },
-  "browser_action": {
-    "default_icon": {
-      "16": "icon16.png",
-      "48": "icon48.png"
+   "chrome_url_overrides": {
+    "newtab": "tabs.html"
+  },
+   "browser_action": {
+      "default_icon": {
+        "16": "icon16.png",
+        "48": "icon48.png"
+      }
     },
-    "default_popup": "popup.html"
-  },
-  "background": {
-    "scripts": [
-      "background.js"
-    ],
-    "persistent": false
-  },
-  "content_scripts": [
-    {
-      "matches": [
-        "*://*/*"
+    "background": {
+      "scripts": [
+        "background.js"
       ],
-      "js": [
-        "content.js"
-      ]
-    }
-  ]
-}
+      "persistent": false
+    },
+    "permissions": [
+      "*://developer.mozilla.org/*",
+      "bookmarks",
+      "tabs",
+      "storage"
+    ],
+    "content_scripts": [
+      {
+        "matches": [
+          "*://*/*"
+        ],
+        "js": [
+          "content.js"
+        ]
+      }
+    ]
+  }

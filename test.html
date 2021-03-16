@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html>
+    <script>
+        function logTabsForWindows(windowInfoArray) {
+            const newDiv = document.createElement("div");
+            const currentDiv = document.getElementById("div1");    
+            document.body.insertBefore(newDiv, currentDiv);
+
+            for (let url of windowInfoArray) {
+                let a = document.createElement('a');
+                a.href = a.text = url;
+
+                /*let html = `<a href="${url}">${url}</a>
+                    <br>`;*/
+                //n = document.createTextNode(html);
+                //newDiv.appendChild(n);
+                
+                let br = document.createElement('br');
+                newDiv.appendChild(a);
+                newDiv.appendChild(br);
+            }
+
+            document.body.insertBefore(newDiv, currentDiv);
+        }
+
+        function test() {
+            return [
+                "https://github.com/docker/awesome-compose",
+                "https://www.typescriptlang.org/docs/handbook/utility-types.html",
+                "https://developer.chrome.com/docs/extensions/reference/windows/#type-Window",
+                "https://www.tutorialsteacher.com/typescript/for-loop",
+                "https://developer.chrome.com/docs/extensions/reference/windows/#method-getAll",
+                "https://developer.chrome.com/docs/extensions/reference/windows/#type-Window",
+                "https://stackoverflow.com/questions/44223719/cast-declaration-variable-inside-for-of-loop",
+                "https://www.facebook.com/events/birthdays?extra_data[start_date]=2021%2F03%2F14&extra_data[notif_id]=1615729402649592&extra_data[notif_type]=birthday_reminder&notif_id=1615729402649592&notif_t=birthday_reminder&ref=notif",
+                "https://scarfolk.blogspot.com/?fbclid=IwAR0z2iQhNxO9eKaogf4C8V5KHq0YpRyZ3a6ywhqSqZ0YnB1BIfGLhGQ9EUk",
+                "http://www.victoriafreehouse.com/",
+                "https://thedandelionpub.com/menus/all-day/",
+                "https://readingterminalmarket.org/",
+                "https://www.yelp.com/map/stargazy-philadelphia",
+                "https://www.google.com/maps/dir/Reading+Terminal+Market,+North+12th+Street,+Philadelphia,+PA/1838+E+Passyunk+Ave,+Philadelphia,+PA+19148/@39.9321453,-75.1711844,14z/data=!4m14!4m13!1m5!1m1!1s0x89c6c62958fb0109:0xcd8fd007dc1d6b01!2m2!1d-75.15943!2d39.9533113!1m5!1m1!1s0x89c6c60f74013f5d:0xe3b05744eb1beaf4!2m2!1d-75.1673179!2d39.9267531!3e2",
+                "https://stackoverflow.com/questions/12787781/type-definition-in-object-literal-in-typescript",
+                "https://www.typescriptlang.org/docs/handbook/classes.html",
+                "chrome://extensions/",
+                "chrome://newtab/",
+                "https://stackoverflow.com/questions/7168362/run-script-each-time-chrome-extension-icon-clicked",
+                "chrome://extensions/?errors=pbmcfgkdlcgoofkkgljgjagjmbhohppn",
+                "chrome://extensions/?errors=pbmcfgkdlcgoofkkgljgjagjmbhohppn",
+                "https://developer.mozilla.org/en-US/docs/Web/API/Document/createElement",
+                "https://stackoverflow.com/questions/34897417/how-i-can-close-all-tabs-in-google-chrome-window-using-api",
+                "chrome://newtab/"
+            ];
+        }
+        
+    </script>
+<body>
+
+<h1>My First Heading</h1>
+
+<p>My first paragraph.</p>
+
+</body>
+<script>
+        console.log(test());
+        
+        logTabsForWindows(test());
+
+        /*browser.windows.getAll({
+            populate: true,
+            windowTypes: ["normal", "popup", "panel", "devtools"]
+        },
+        logTabsForWindows);*/
+</script>
+</html>
