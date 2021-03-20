@@ -3,7 +3,7 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 3vmin;
   pointer-events: none;
 }
 
@@ -23,6 +23,10 @@
   color: white;
   min-width: 100px;
   padding: 10px;
+}
+
+ul {
+  text-align: left;
 }
 
 .App-link {
