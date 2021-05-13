@@ -9,17 +9,22 @@ class App extends React.Component<{}, {loading:boolean, title:string|null, data:
     this.state = { loading: true, title: null, data: null };
   }
 
-  renderList(data:any) {
-    return data[0].tabs.map((n:chrome.tabs.Tab) => (
-      <li><a href={n.url}>{n.title}</a></li>
-    ))
+  renderList(windows:any) {
+    var html:Array<React.ReactNode> = Array<React.ReactNode>();
+
+    windows?.forEach((window:any) => {
+      html.push(window.tabs?.map((n:chrome.tabs.Tab) => (
+        <li><a href={n.url} target="_blank">{(n?.title?.length ?? 0 > 0) ? n.title : n.url} - {n.url}</a></li>
+      )))
+    });
+
+    return html.reverse();
   }
 
   componentWillMount() {
     let p = this.getTabsList();
 
-    p.then((w:any) => { 
-      console.log(w);
+    p.then((w:any) => {
       this.setState({loading: false, title:'whatever...', data: w.windows});
     });
 
@@ -51,23 +56,15 @@ class App extends React.Component<{}, {loading:boolean, title:string|null, data:
   
   render () {
     const { loading, title, data } = this.state;
-    const listItems = loading ? console.log('waiting...') : this.renderList(this.state.data);
+    const tabsList:Array<React.ReactNode> = loading ? [<p>'waiting...'</p>] : this.renderList(this.state.data);
       
     return (
        <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>Written by <a style={{color: "white"}} href="mailto:jeremy.mark.went@gmail.com">Jeremy Went.</a></p>
-          {/*<a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Please Learn React
-          </a>*/}
         </header>
-        <ul>{loading ? "loading..." : listItems}</ul>
+        <ul>{tabsList}</ul>
       </div>
     );
   }
