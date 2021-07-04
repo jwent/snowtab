@@ -11,7 +11,15 @@
       windows.forEach((windows:any) => {
         if (windows.tabs !== undefined) {
           windows.tabs.forEach((t:any) => {
-            elem!.innerHTML += `<li><a href="${t.url}">${t.url}</a></li>`;
+            //console.log(t);
+            if (t.pendingUrl === undefined) {
+              t.pendingUrl = String();
+            }
+            
+            if (!t.pendingUrl!.includes('chrome-extension')) {
+              //elem!.innerHTML += `<li class="list-group-item"><img src="${t.favIconUrl}" width="25">&nbsp<a href="${t.title}">${t.url}</a></li>`;
+              elem!.innerHTML += `<li class="list-group-item"><a href="${t.title}">${t.url}</a></li>`;
+            }
           });
         }
       });

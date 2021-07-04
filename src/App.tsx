@@ -2,6 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import logo from "./logo.svg";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends React.Component<{}, {loading:boolean, title:string|null, data:Array<chrome.windows.Window>|null}> {
   constructor(props:any) {
@@ -14,7 +15,8 @@ class App extends React.Component<{}, {loading:boolean, title:string|null, data:
 
     windows?.forEach((window:any) => {
       html.push(window.tabs?.map((n:chrome.tabs.Tab) => (
-        <li><a href={n.url} target="_blank">{(n?.title?.length ?? 0 > 0) ? n.title : n.url} - {n.url}</a></li>
+        /*<li className="list-group-item"><img src={n.favIconUrl} width="25"></img>&nbsp;<a href={n.url} target="_blank">{(n?.title?.length ?? 0 > 0) ? n.title : n.url} - {n.url}</a></li>*/
+        <li className="list-group-item"><a href={n.url} target="_blank">{(n?.title?.length ?? 0 > 0) ? n.title : n.url} - {n.url}</a></li>
       )))
     });
 
@@ -53,18 +55,36 @@ class App extends React.Component<{}, {loading:boolean, title:string|null, data:
     return tabs;
   };
 
-  
+  clearLocalStorage() {
+    chrome.storage.local.clear(function() {
+      var error = chrome.runtime.lastError;
+      if (error) {
+          console.error(error);
+      }
+      else {
+        location.reload();
+      }
+    });
+  }
+    
   render () {
     const { loading, title, data } = this.state;
     const tabsList:Array<React.ReactNode> = loading ? [<p>'waiting...'</p>] : this.renderList(this.state.data);
       
     return (
-       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>Written by <a style={{color: "white"}} href="mailto:jeremy.mark.went@gmail.com">Jeremy Went.</a></p>
-        </header>
-        <ul>{tabsList}</ul>
+       <div className="container">
+         <div className="row">
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <p>Written by <a style={{color: "white"}} href="mailto:jeremy.mark.went@gmail.com">Jeremy Went.</a></p>
+          </header>
+        </div>
+        <div className="row">
+          <button id="clearTabsBtn" type="button" className="btn btn-danger" onClick={this.clearLocalStorage}>Clear Tabs List</button>
+        </div>
+        <div className="row">
+          <ul className="list-group list-group-flush">{tabsList}</ul>
+        </div>
       </div>
     );
   }
