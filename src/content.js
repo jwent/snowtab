@@ -17,7 +17,6 @@ function logTabsForWindows(windowInfoArray) {
 }
 function closeTabs() {
     chrome.tabs.query({}, function (tabs) {
-        debugger;
         for (var i = 0; i < tabs.length; i++) {
             chrome.tabs.remove(tabs[i].id, function () { });
         }

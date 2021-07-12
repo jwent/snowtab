@@ -1,12 +1,4 @@
 // This file is ran as a background script
-console.log("Hello from background script!")
-
-/*
-var tabs = chrome.windows.getAll((w) => {
-    console.log(w);    
-});
-console.log(tabs);
-*/
 
 function logTabsForWindows(windowInfoArray: Array<any>) {
     const tabsDiv = document.createElement("div");
@@ -15,11 +7,20 @@ function logTabsForWindows(windowInfoArray: Array<any>) {
 
     try {
       chrome.storage.local.get('windows', (t) => {
-        console.log('tabs here...');
-
         if (t.windows !== undefined && t.windows != 0 && t.windows !== false) {
-          console.log(t.windows);
           let tabs = t.windows.concat(windowInfoArray);
+          
+          tabs.array.forEach((t:any) => {
+            if (t.pendingUrl === undefined) {
+              t.pendingUrl = String();
+            }
+            
+            if (!t.pendingUrl!.includes('chrome-extension')) {
+            }
+  
+            
+          });
+
           chrome.storage.local.set({windows: tabs}, () => {
             closeTabs();
           });

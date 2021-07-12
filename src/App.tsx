@@ -72,18 +72,25 @@ class App extends React.Component<{}, {loading:boolean, title:string|null, data:
     const tabsList:Array<React.ReactNode> = loading ? [<p>'waiting...'</p>] : this.renderList(this.state.data);
       
     return (
-       <div className="container">
-         <div className="row">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <p>Written by <a style={{color: "white"}} href="mailto:jeremy.mark.went@gmail.com">Jeremy Went.</a></p>
-          </header>
-        </div>
-        <div className="row">
-          <button id="clearTabsBtn" type="button" className="btn btn-danger" onClick={this.clearLocalStorage}>Clear Tabs List</button>
-        </div>
-        <div className="row">
-          <ul className="list-group list-group-flush">{tabsList}</ul>
+      <div>
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>Written by <a style={{color: "white"}} href="mailto:jeremy.mark.went@gmail.com">Jeremy Went.</a></p>
+        </header>
+        
+
+        <div className="container-fluid px-4">
+          <div className="row gx-5">
+            <div className="p-3 col-xm">
+              <button id="clearTabsBtn" type="button" className="btn btn-danger" onClick={this.clearLocalStorage}>Clear Tabs List</button>
+            </div>
+          </div>
+
+          <div className="row mt-0 p-0 gx-5">
+            <div className="col-xm">
+              <ul className="list-group list-group-flush">{tabsList}</ul>
+            </div>
+          </div>
         </div>
       </div>
     );
