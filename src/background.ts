@@ -1,24 +1,38 @@
 // This file is ran as a background script
 
-function logTabsForWindows(windowInfoArray: Array<any>) {
+function logTabsForWindows(windowInfoArray: Array<chrome.windows.Window>) {
     const tabsDiv = document.createElement("div");
     const currentDiv = document.getElementById("tabsListDiv");    
     document.body.insertBefore(tabsDiv, currentDiv);
 
+    
+    console.log("New Version 2.0");
+    console.log("background.js process..");
+
     try {
       chrome.storage.local.get('windows', (t) => {
         if (t.windows !== undefined && t.windows != 0 && t.windows !== false) {
-          let tabs = t.windows.concat(windowInfoArray);
+          let tabs:Array<chrome.tabs.Tab> = t.windows.concat(windowInfoArray);
           
-          tabs.array.forEach((t:any) => {
+          if (tabs == undefined) {
+            console.log("Tabs not working!");
+          }
+
+          //let tabsArr:Array<chrome.tabs.Tab> = tabs.entries();
+
+          for (const [key, value] of Object.entries(tabs)) {
+            console.log(`${key}: ${value}`);
+          }
+
+          //console.log(tabsArr);
+
+          tabs.forEach((t:chrome.tabs.Tab) => {
             if (t.pendingUrl === undefined) {
               t.pendingUrl = String();
             }
             
             if (!t.pendingUrl!.includes('chrome-extension')) {
             }
-  
-            
           });
 
           chrome.storage.local.set({windows: tabs}, () => {
@@ -37,7 +51,7 @@ function logTabsForWindows(windowInfoArray: Array<any>) {
     }
 
     for (let windowInfo of windowInfoArray) {
-      windowInfo.tabs.reverse().map((tab:any) => {
+      windowInfo?.tabs?.reverse().map((tab:any) => {
         let a:HTMLAnchorElement = document.createElement('a');
         a.href = a.text = tab.url;
 

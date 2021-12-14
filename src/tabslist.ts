@@ -1,5 +1,6 @@
 (() => {
   try {
+    console.log("tabslist");
     //TODO: use a Promise.
     chrome.storage.local.get('windows', (items: { [key: string]: any; }) => {
 
