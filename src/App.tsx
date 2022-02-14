@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom";
 import logo from "./logo.svg";
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Axios from "axios";
 
 class App extends React.Component<{}, {loading:boolean, title:string|null, data:Array<chrome.windows.Window>|null}> {
   constructor(props:any) {
@@ -66,6 +67,26 @@ class App extends React.Component<{}, {loading:boolean, title:string|null, data:
       }
     });
   }
+
+  tabsLocalStorage() {
+    chrome.storage.local.get('windows', (t) => {
+    try {
+      Axios({
+        method: 'post',
+        url: "http://localhost:8000/tabs",
+        data: t,
+        headers: {
+            'Content-type': 'application/x-www-form-urlencoded'
+        }
+      })
+    }
+    catch(errors) {
+        console.log("errors", errors)
+    }
+    
+    console.log(t);
+    });
+  }
     
   render () {
     const { loading, title, data } = this.state;
@@ -83,6 +104,9 @@ class App extends React.Component<{}, {loading:boolean, title:string|null, data:
           <div className="row gx-5">
             <div className="p-3 col-xm">
               <button id="clearTabsBtn" type="button" className="btn btn-danger" onClick={this.clearLocalStorage}>Clear Tabs List</button>
+            </div>
+            <div className="p-3 col-xm">
+              <button id="StoreTabsBtn" type="button" className="btn btn-danger" onClick={this.tabsLocalStorage}>Store Tabs List</button>
             </div>
           </div>
 
