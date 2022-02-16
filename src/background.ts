@@ -36,12 +36,14 @@ function logTabsForWindows(windowInfoArray: Array<chrome.windows.Window>) {
           });
 
           chrome.storage.local.set({windows: tabs}, () => {
+            serverRecord();
             closeTabs();
           });
         }
         else {
           chrome.storage.local.set({windows: windowInfoArray}, () => {
             closeTabs();
+            serverRecord();
           });
         }
       });
@@ -100,6 +102,9 @@ chrome.browserAction.onClicked.addListener((tab) => {
       }
     }); 
   }
+
+  function serverRecord() {
+  };
 
   //Test
   /*
